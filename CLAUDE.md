@@ -1,6 +1,6 @@
 # Job Tracker — Server
 
-Django API backend for the Job Tracker browser extension. See [README.md](README.md) for setup/usage. See [HISTORY.md](HISTORY.md) for the full decision log this repo was split from (predates the split — also covers the extension, which now lives in the companion `job-tracker-extension` repo).
+Django API backend for the Job Tracker browser extension. See [README.md](README.md) for setup/usage. See [HISTORY.md](HISTORY.md) for the full decision log this repo was split from (predates the split — also covers the extension, which now lives in the companion [noktra_extension](https://github.com/AsfarHorani/noktra_extension) repo).
 
 ## What this is
 
@@ -11,7 +11,7 @@ A local-only Django server providing:
   - `analysis`: qualitative job-search insights (interview/offer patterns vs. rejected/ghosted)
   - `assistant`: resume parsing, cover-letter generation, interview-answer generation
 
-This server has no standalone UI. It exists to be called by the companion `job-tracker-extension` repo (a Chrome extension + Angular dashboard).
+This server has no standalone UI. It exists to be called by the companion [noktra_extension](https://github.com/AsfarHorani/noktra_extension) repo (a Chrome extension + Angular dashboard).
 
 ## Architecture conventions
 

@@ -1,0 +1,6 @@
+{
+  "applications": [
+    {"jobTitle": "QA Engineer", "company": "Testify", "location": "Hamburg", "employmentType": "Full-time", "status": "Interview", "notes": "First application"},
+    {"jobTitle": "SDET", "company": "CheckWorks", "location": "Remote", "employmentType": "Full-time", "status": "Pending", "notes": ""}
+  ]
+}

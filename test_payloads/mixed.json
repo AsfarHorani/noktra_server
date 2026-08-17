@@ -1,0 +1,12 @@
+{
+  "applications": [
+    {"jobTitle": "Backend Engineer", "company": "Acme Manufacturing", "location": "Munich", "employmentType": "Full-time", "status": "Interview", "notes": "Recruiter called within 2 days, mid-size industrial company"},
+    {"jobTitle": "Senior Backend Engineer", "company": "Bosch", "location": "Stuttgart", "employmentType": "Full-time", "status": "Offer", "notes": "5+ years, Python/Docker/Kubernetes shop"},
+    {"jobTitle": "Platform Engineer", "company": "SmallCo Industrial", "location": "Munich", "employmentType": "Full-time", "status": "Interview", "notes": "Applied within 24h of posting"},
+    {"jobTitle": "Frontend Developer", "company": "MegaBank FinTech", "location": "Frankfurt", "employmentType": "Full-time", "status": "Rejected", "notes": "No response for 3 weeks then auto-rejection email"},
+    {"jobTitle": "React Developer", "company": "PaymentsCorp", "location": "Berlin", "employmentType": "Full-time", "status": "Rejected", "notes": "Large FinTech, generic rejection"},
+    {"jobTitle": "Frontend Engineer", "company": "BigBank Digital", "location": "Frankfurt", "employmentType": "Contract", "status": "Ghosted", "notes": "Applied 6 weeks ago, never heard back"},
+    {"jobTitle": "Data Scientist", "company": "Fraunhofer", "location": "Munich", "employmentType": "Full-time", "status": "Pending", "notes": ""},
+    {"jobTitle": "DevOps Engineer", "company": "Siemens", "location": "Nuremberg", "employmentType": "Full-time", "status": "Applied", "notes": ""}
+  ]
+}

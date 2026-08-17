@@ -1,0 +1,8 @@
+{
+  "applications": [
+    {"jobTitle": "Junior Frontend Developer", "company": "PixelCo", "location": "Berlin", "employmentType": "Full-time", "status": "Rejected", "notes": "No prior professional experience listed"},
+    {"jobTitle": "Junior Frontend Developer", "company": "WebWorks", "location": "Berlin", "employmentType": "Full-time", "status": "Rejected", "notes": "Rejected same day, likely resume screen"},
+    {"jobTitle": "Frontend Intern", "company": "AppStudio", "location": "Berlin", "employmentType": "Internship", "status": "Ghosted", "notes": "Applied 5 weeks ago, no response"},
+    {"jobTitle": "Junior React Developer", "company": "StartupX", "location": "Berlin", "employmentType": "Full-time", "status": "Rejected", "notes": "Feedback: looking for 3+ years experience"}
+  ]
+}

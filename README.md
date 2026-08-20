@@ -52,6 +52,34 @@ ollama pull llama3.1:8b
 
 The API is now listening at `http://127.0.0.1:8000/api/`. Point the [extension](https://github.com/AsfarHorani/noktra_extension) at it and sign up for an account from the popup or dashboard — everything else (tracking, AI features) works from there.
 
+### Option: run with Docker
+
+No Python setup needed — this brings up the API and Ollama together in one command.
+
+```bash
+git clone https://github.com/AsfarHorani/noktra_server.git
+cd noktra_server
+
+docker compose up --build -d
+docker compose exec ollama ollama pull llama3.1:8b   # first time only
+```
+
+The API is now listening at `http://127.0.0.1:8000/api/`, same as the manual setup — migrations run automatically on container start. Application data persists across restarts in a named volume (`sqlite_data`); tear everything down (and optionally wipe that data) with:
+
+```bash
+docker compose down          # stop, keep data
+docker compose down -v       # stop, also delete the sqlite_data/ollama_data volumes
+```
+
+**Already running Ollama natively on your machine** (e.g. with other models already pulled)? Skip duplicating it in a container — remove the `ollama` service from `docker-compose.yml`, or just point `OLLAMA_URL` at your host instance instead:
+
+```bash
+# in .env, before `docker compose up`:
+OLLAMA_URL=http://host.docker.internal:11434
+```
+
+Config still works the same way as the non-Docker setup (`.env` — see [Configuration](#configuration) below); `docker-compose.yml` passes it through via `env_file`.
+
 ### Running tests
 
 ```bash
@@ -98,6 +126,9 @@ analysis/            Job-search insights — deterministic stats + qualitative L
 assistant/           Resume parsing, cover letter & interview answer generation
 SCHEMA.md            Entity-relationship diagram for the full data model
 test_payloads/       Fixtures for manual testing against a live Ollama
+Dockerfile            Container image — gunicorn + whitenoise, see "Option: run with Docker" above
+docker-compose.yml    Server + Ollama, one command to run both
+docker-entrypoint.sh  Runs migrations then starts gunicorn on container start
 ```
 
 Each app has its own `tests.py`; `analysis`/`assistant`'s prompt wording lives in a `prompts.json` alongside their `prompts.py` (see either file's module docstring) so tuning a prompt never requires touching Python logic.

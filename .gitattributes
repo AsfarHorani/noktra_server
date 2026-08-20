@@ -1,0 +1,6 @@
+# Shell scripts must keep LF line endings regardless of the checking-out
+# OS — a CRLF shebang line breaks with "bad interpreter" inside the Linux
+# container these run in. Without this, a Windows collaborator's git
+# (commonly core.autocrlf=true) would silently convert this to CRLF on
+# checkout and break the Docker build for them.
+*.sh text eol=lf

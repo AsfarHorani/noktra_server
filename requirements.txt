@@ -1,3 +1,11 @@
 Django>=5.0,<6.0
 requests>=2.31
 python-dotenv>=1.0
+
+# Only actually used inside the Docker image (see Dockerfile) — manage.py
+# runserver is still what local/non-container dev uses, same as always.
+# gunicorn is a real production-style WSGI server; whitenoise serves
+# STATIC_ROOT (Django admin's CSS/JS) without needing a separate nginx
+# container for something this small.
+gunicorn>=23.0
+whitenoise>=6.7

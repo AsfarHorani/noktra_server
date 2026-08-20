@@ -73,6 +73,12 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # Serves STATIC_ROOT (Django admin's CSS/JS) directly — only relevant
+    # inside the Docker image, where there's no separate nginx/CDN in front
+    # of gunicorn. A no-op for local dev (manage.py runserver already serves
+    # static files itself when DEBUG=True), so this is safe to leave in
+    # unconditionally rather than branching on how the app happens to be run.
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -111,10 +117,14 @@ WSGI_APPLICATION = 'jobtracker_server.wsgi.application'
 # enough, and it avoids needing a database server installed/running/
 # credentialed just for a single-machine personal tool.
 
+# DATABASE_PATH lets the Docker setup point this at a named-volume-mounted
+# path (see docker-compose.yml) so the database survives a container
+# rebuild — local/non-container dev doesn't set this and keeps using the
+# same BASE_DIR/db.sqlite3 it always has.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.environ.get('DATABASE_PATH', str(BASE_DIR / 'db.sqlite3')),
     }
 }
 
@@ -154,6 +164,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# Only populated by `collectstatic`, which the Dockerfile runs at build
+# time — irrelevant to local/non-container dev (manage.py runserver doesn't
+# need STATIC_ROOT at all).
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

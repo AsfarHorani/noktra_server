@@ -1,0 +1,40 @@
+# One-command way to run the whole backend stack (Django + Ollama) locally.
+# `docker compose up --build`, then pull a model once:
+#   docker compose exec ollama ollama pull llama3.1:8b
+#
+# Already running Ollama natively on your host instead? Skip the `ollama`
+# service below entirely and point OLLAMA_URL at it via .env:
+#   OLLAMA_URL=http://host.docker.internal:11434
+# (host.docker.internal resolves to the host machine from inside a
+# container — the standard Docker Desktop mechanism for this.)
+
+services:
+  server:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Overrides whatever OLLAMA_URL .env sets (or its own localhost
+      # default) — inside this compose network, Ollama is reachable by its
+      # service name, not localhost. Comment this out if you're pointing at
+      # a host-native Ollama via host.docker.internal instead (see above).
+      OLLAMA_URL: http://ollama:11434
+      DATABASE_PATH: /app/data/db.sqlite3
+    volumes:
+      - sqlite_data:/app/data
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  sqlite_data:
+  ollama_data:
